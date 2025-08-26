@@ -1,13 +1,14 @@
 package com.mycompany.main;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Book {
     String title;
     String author;
     int copies;
-    Date publishDate;
+    LocalDate publishDate;
 
-    public Book(String title, String author, int copies, Date publishDate){
+    public Book(String title, String author, int copies, LocalDate publishDate){
         this.title = title;
         this.author = author;
         this.copies = copies;

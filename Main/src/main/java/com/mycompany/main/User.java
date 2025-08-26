@@ -1,7 +1,7 @@
 package com.mycompany.main;
 
 
-public class User extends Library{
+public class User{
 
     String name;
     String email;

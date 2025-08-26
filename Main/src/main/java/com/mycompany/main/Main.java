@@ -1,4 +1,5 @@
 package com.mycompany.main;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -12,9 +13,13 @@ public class Main {
         try (Scanner scan = new Scanner(System.in)) {
 
             String option = "0";
+            String line;
 
             System.out.println(Library.DisplayOptions());
 
+            Book book = ReadAndWriteFile.readBooks("Books.txt");
+            users.addBook(book);
+            System.out.println(users.books.size());
 
             while (!option.equals("6")) {
 
@@ -55,6 +60,9 @@ public class Main {
                 }
             }
         }  // end scanner
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     } // end void main
 } // end Main
 

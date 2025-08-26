@@ -5,12 +5,8 @@ import java.util.List;
 
 public class Library{
 
-
-
    List<User> users = new ArrayList<>();
    List<Book> books = new ArrayList<>();
-
-
 
 
     static String DisplayOptions(){

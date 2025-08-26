@@ -17,9 +17,9 @@ public class Main {
 
             System.out.println(Library.DisplayOptions());
 
-            Book book = ReadAndWriteFile.readBooks("Books.txt");
-            users.addBook(book);
-            System.out.println(users.books.size());
+                Book book = ReadAndWriteFile.readBooks("Books.txt");
+                users.addBook(book);
+                System.out.println(users.books.size());
 
             while (!option.equals("6")) {
 

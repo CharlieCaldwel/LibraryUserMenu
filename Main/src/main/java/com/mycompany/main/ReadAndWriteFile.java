@@ -2,6 +2,8 @@ package com.mycompany.main;
 import java.nio.file.*;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadAndWriteFile {
 
@@ -13,6 +15,7 @@ public class ReadAndWriteFile {
 
     public static Book readBooks(String file) throws IOException {
         String line;
+
         line = ReadAndWriteFile.readFile("Books.txt");
         String[] books = line.split("\n");
 
@@ -26,6 +29,7 @@ public class ReadAndWriteFile {
             LocalDate date = LocalDate.of(bookYear, bookMonth, bookDay);
             Book newBook = new Book(bookTitle, bookAuthor, bookCopies, date);
             return newBook;
+
         }
         return null;
     }

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ReadAndWriteFile {
 
 
@@ -13,24 +14,27 @@ public class ReadAndWriteFile {
         return file;
     }
 
-    public static Book readBooks(String file) throws IOException {
+    public static List<Book> readBooks(String file) throws IOException {
         String line;
 
         line = ReadAndWriteFile.readFile("Books.txt");
         String[] books = line.split("\n");
+        List<Book> bookList = new ArrayList<>();
 
         for( String book : books){
-            String bookTitle = book.split("\\|")[0];
-            String bookAuthor = book.split("\\|")[1];
-            int bookCopies = Integer.parseInt(book.split("\\|")[2]);
-            int bookYear = Integer.parseInt(book.split("\\|")[3].trim());
-            int bookMonth = Integer.parseInt(book.split("\\|")[4].trim());
-            int bookDay = Integer.parseInt(book.split("\\|")[5].trim());
-            LocalDate date = LocalDate.of(bookYear, bookMonth, bookDay);
-            Book newBook = new Book(bookTitle, bookAuthor, bookCopies, date);
-            return newBook;
-
+            bookList.add(readBook(book));
         }
-        return null;
+        return bookList;
+    }
+
+    private static Book readBook(String line){
+        String bookTitle = line.split("\\|")[0];
+        String bookAuthor = line.split("\\|")[1];
+        int bookCopies = Integer.parseInt(line.split("\\|")[2]);
+        int bookYear = Integer.parseInt(line.split("\\|")[3].trim());
+        int bookMonth = Integer.parseInt(line.split("\\|")[4].trim());
+        int bookDay = Integer.parseInt(line.split("\\|")[5].trim());
+        LocalDate date = LocalDate.of(bookYear, bookMonth, bookDay);
+        return new Book(bookTitle, bookAuthor, bookCopies, date);
     }
 }

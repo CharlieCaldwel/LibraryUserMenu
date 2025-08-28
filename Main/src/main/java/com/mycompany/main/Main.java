@@ -1,14 +1,16 @@
 package com.mycompany.main;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Scanner;
+
 
 
 public class Main {
     
     public static void main(String[] args) {
 
-        Library users = new Library();
+        Library lib = new Library();
+        String answer = "no";
+
 
         try (Scanner scan = new Scanner(System.in)) {
 
@@ -17,9 +19,14 @@ public class Main {
 
             System.out.println(Library.DisplayOptions());
 
-                Book book = ReadAndWriteFile.readBooks("Books.txt");
-                users.addBook(book);
-                System.out.println(users.books.size());
+            for(Book book : ReadAndWriteFile.readBooks("Books.txt")) {
+                lib.addBook(book);
+            }
+
+
+                lib.getBook("S");
+
+
 
             while (!option.equals("6")) {
 

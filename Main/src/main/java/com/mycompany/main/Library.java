@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Library{
 
-   List<User> users = new ArrayList<>();
-   List<Book> books = new ArrayList<>();
+   private List<User> users = new ArrayList<>();
+   private List<Book> books = new ArrayList<>();
 
 
     static String DisplayOptions(){
@@ -71,12 +71,25 @@ public class Library{
 
     } // end removeBook
 
-    public void getBook(){
+    public int getBookCount(){
+        return books.size();
+    }
 
-        for(Book book : books){
-            System.out.println("bookTitle: " + book.title + " bookAuthor: " + book.author + " bookCopies: " + book.copies + " bookPublishDate: " + book.publishDate);
+    public Book getBook(String searchWord) {
+        Book bookFound = null;
+        for (Book book : books) {
+            if (book.title.contains(searchWord)) {
+                System.out.println("Book found: ");
+                System.out.println("Book: " + book.title + ", Author: " + book.author + ", Copies: " + book.copies + ", Publish Date: " + book.publishDate);
+                bookFound = book;
+            } else if (book.author.contains(searchWord)) {
+                System.out.println("Book found: ");
+                System.out.println("Book: " + book.title + ", Author: " + book.author + ", Copies: " + book.copies + ", Publish Date: " + book.publishDate);
+                bookFound = book;
+            }
+
         }
-
+        return bookFound;
     } // end getBook
 
     public void getBookCopies(Book book){

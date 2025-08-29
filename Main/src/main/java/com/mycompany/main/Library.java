@@ -49,15 +49,32 @@ public class Library{
 
     } // end removeUser
 
-    public void getUser(){
+    public void getUsers(){
 
         for(User user : users){
 
-            System.out.println("usersName: " + user.name + "users ID: " + user.id);
+            System.out.println("Name: " + user.name + ", Email: " + user.email);
 
         }
 
     } // end getUser
+
+    public User getOneUser(String searchWord){
+        int i = 0;
+        for(User user : users){
+            if(!users.isEmpty()) {
+                if (user.name.contains(searchWord.toLowerCase()) || user.email.contains(searchWord.toLowerCase())) {
+                    return user;
+                }
+                System.out.println("i = " + i + "Users size = " + users.size());
+                if (i == users.size()) {
+                    System.out.println("User not found");
+                }
+                i++;
+            }
+        }
+        return null;
+    }
 
     public void addBook(Book book){
 
@@ -78,16 +95,11 @@ public class Library{
     public Book getBook(String searchWord) {
         Book bookFound = null;
         for (Book book : books) {
-            if (book.title.contains(searchWord)) {
-                System.out.println("Book found: ");
-                System.out.println("Book: " + book.title + ", Author: " + book.author + ", Copies: " + book.copies + ", Publish Date: " + book.publishDate);
-                bookFound = book;
-            } else if (book.author.contains(searchWord)) {
+            if (book.title.contains(searchWord) || book.author.contains(searchWord)) {
                 System.out.println("Book found: ");
                 System.out.println("Book: " + book.title + ", Author: " + book.author + ", Copies: " + book.copies + ", Publish Date: " + book.publishDate);
                 bookFound = book;
             }
-
         }
         return bookFound;
     } // end getBook

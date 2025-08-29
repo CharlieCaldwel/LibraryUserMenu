@@ -37,4 +37,36 @@ public class ReadAndWriteFile {
         LocalDate date = LocalDate.of(bookYear, bookMonth, bookDay);
         return new Book(bookTitle, bookAuthor, bookCopies, date);
     }
+
+    public static List<User> readUsers(String file) throws IOException {
+        String line;
+        List<User> userList = new ArrayList<>();
+        line = ReadAndWriteFile.readFile("UserData.txt");
+
+        if(!line.isEmpty()) {
+            String[] users = line.split("\n");
+
+            for (String user : users) {
+                userList.add(readUser(user));
+            }
+        }
+        return userList;
+    }
+
+    private static User readUser(String line){
+
+        String userName = line.split("\\|")[0];
+        String UserEmail = line.split("\\|")[1];
+        return new User(userName, UserEmail);
+    }
+
+    public static void writeUser(User user){
+        try{
+            String userString = user.name.toLowerCase() + "|" + user.email.toLowerCase();
+            Files.writeString(Paths.get("UserData.txt"), userString + "\n", StandardOpenOption.APPEND);
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
 }

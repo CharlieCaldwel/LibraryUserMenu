@@ -11,6 +11,28 @@ public class Main {
         Library lib = new Library();
         String answer = "no";
 
+        try {
+            for(Book book : ReadAndWriteFile.readBooks("Books.txt")) {
+                lib.addBook(book);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            for(User user : ReadAndWriteFile.readUsers("UserData.txt")) {
+                lib.addUser(user);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        User charlie = lib.getOneUser("bobby");
+        if (charlie != null){
+            System.out.println(charlie.name + " " + charlie.email);
+        }
+
+
 
         try (Scanner scan = new Scanner(System.in)) {
 
@@ -18,15 +40,6 @@ public class Main {
             String line;
 
             System.out.println(Library.DisplayOptions());
-
-            for(Book book : ReadAndWriteFile.readBooks("Books.txt")) {
-                lib.addBook(book);
-            }
-
-
-                lib.getBook("S");
-
-
 
             while (!option.equals("6")) {
 
@@ -61,15 +74,27 @@ public class Main {
                         System.out.println("Logging out... ");
                         break;
 
+                    case "7":
+                        String userName;
+                        String userEmail;
+                        System.out.print("Name: ");
+                        userName = scan.nextLine();
+                        System.out.print("Email: ");
+                        userEmail = scan.nextLine();
+                        User user = new User(userName, userEmail);
+                        lib.addUser(user);
+                        ReadAndWriteFile.writeUser(user);
+                        System.out.println("\n");
+                        lib.getUsers();
+                        break;
+
                     default:
                         System.out.println("Invalid input");
 
                 }
             }
         }  // end scanner
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     } // end void main
+
 } // end Main
 

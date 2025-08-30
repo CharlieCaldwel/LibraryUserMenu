@@ -16,26 +16,30 @@ public class ReadAndWriteFile {
 
     public static List<Book> readBooks(String file) throws IOException {
         String line;
-
         line = ReadAndWriteFile.readFile("Books.txt");
-        String[] books = line.split("\n");
         List<Book> bookList = new ArrayList<>();
+        if(!line.isEmpty()) {
+            String[] books = line.split("\n");
 
-        for( String book : books){
-            bookList.add(readBook(book));
+            for (String book : books) {
+                bookList.add(readBook(book));
+            }
         }
         return bookList;
     }
 
     private static Book readBook(String line){
-        String bookTitle = line.split("\\|")[0];
-        String bookAuthor = line.split("\\|")[1];
-        int bookCopies = Integer.parseInt(line.split("\\|")[2]);
-        int bookYear = Integer.parseInt(line.split("\\|")[3].trim());
-        int bookMonth = Integer.parseInt(line.split("\\|")[4].trim());
-        int bookDay = Integer.parseInt(line.split("\\|")[5].trim());
-        LocalDate date = LocalDate.of(bookYear, bookMonth, bookDay);
-        return new Book(bookTitle, bookAuthor, bookCopies, date);
+        if(!line.isEmpty()) {
+            String bookTitle = line.split("\\|")[0];
+            String bookAuthor = line.split("\\|")[1];
+            int bookCopies = Integer.parseInt(line.split("\\|")[2]);
+            int bookYear = Integer.parseInt(line.split("\\|")[3].trim());
+            int bookMonth = Integer.parseInt(line.split("\\|")[4].trim());
+            int bookDay = Integer.parseInt(line.split("\\|")[5].trim());
+            LocalDate date = LocalDate.of(bookYear, bookMonth, bookDay);
+            return new Book(bookTitle, bookAuthor, bookCopies, date);
+        }
+        return null;
     }
 
     public static List<User> readUsers(String file) throws IOException {
@@ -57,13 +61,42 @@ public class ReadAndWriteFile {
 
         String userName = line.split("\\|")[0];
         String UserEmail = line.split("\\|")[1];
-        return new User(userName, UserEmail);
+        String UserPassword = line.split("\\|")[2];
+
+        return new User(userName, UserEmail, UserPassword);
     }
 
     public static void writeUser(User user){
         try{
-            String userString = user.name.toLowerCase() + "|" + user.email.toLowerCase();
-            Files.writeString(Paths.get("UserData.txt"), userString + "\n", StandardOpenOption.APPEND);
+            if(user.usersBooks[0] != null) {
+                String userString = user.name.toLowerCase() + "|" + user.email.toLowerCase() + "|" + user.password + "|"
+                        + user.usersBooks[0].title + "|" + user.usersBooks[0].author + "|" + user.usersBooks[0].publishDate.getYear() + "|" + user.usersBooks[0].publishDate.getMonthValue() + "|" + user.usersBooks[0].publishDate.getDayOfMonth()
+                        + "|" + "|" + "|" + "|"
+                        + "|" + "|" + "|" + "|";
+                Files.writeString(Paths.get("UserData.txt"), userString + "\n", StandardOpenOption.APPEND);
+            }
+            else if(user.usersBooks[1] != null) {
+                String userString = user.name.toLowerCase() + "|" + user.email.toLowerCase() + "|" + user.password + "|"
+                        + user.usersBooks[0].title + "|" + user.usersBooks[0].author + "|" + user.usersBooks[0].publishDate.getYear() + "|" + user.usersBooks[0].publishDate.getMonthValue() + "|" + user.usersBooks[0].publishDate.getDayOfMonth()
+                        + user.usersBooks[1].title + "|" + user.usersBooks[1].author + "|" + user.usersBooks[1].publishDate.getYear() + "|" + user.usersBooks[1].publishDate.getMonthValue() + "|" + user.usersBooks[1].publishDate.getDayOfMonth()
+                        + "|" + "|" + "|" + "|";
+                Files.writeString(Paths.get("UserData.txt"), userString + "\n", StandardOpenOption.APPEND);
+            }
+            else if(user.usersBooks[2] != null) {
+                String userString = user.name.toLowerCase() + "|" + user.email.toLowerCase() + "|" + user.password + "|"
+                        + user.usersBooks[0].title + "|" + user.usersBooks[0].author + "|" + user.usersBooks[0].publishDate.getYear() + "|" + user.usersBooks[0].publishDate.getMonthValue() + "|" + user.usersBooks[0].publishDate.getDayOfMonth()
+                        + user.usersBooks[1].title + "|" + user.usersBooks[1].author + "|" + user.usersBooks[1].publishDate.getYear() + "|" + user.usersBooks[1].publishDate.getMonthValue() + "|" + user.usersBooks[1].publishDate.getDayOfMonth()
+                        + user.usersBooks[2].title + "|" + user.usersBooks[2].author + "|" + user.usersBooks[2].publishDate.getYear() + "|" + user.usersBooks[2].publishDate.getMonthValue() + "|" + user.usersBooks[2].publishDate.getDayOfMonth();
+                Files.writeString(Paths.get("UserData.txt"), userString + "\n", StandardOpenOption.APPEND);
+            }
+            else{
+                String userString = user.name.toLowerCase() + "|" + user.email.toLowerCase() + "|" + user.password + "|"
+                        + "|" + "|" + "|" + "|"
+                        + "|" + "|" + "|" + "|"
+                        + "|" + "|" + "|" + "|";
+                Files.writeString(Paths.get("UserData.txt"), userString + "\n", StandardOpenOption.APPEND);
+            }
+
         }
         catch (IOException e){
             throw new RuntimeException(e);

@@ -1,4 +1,9 @@
 package com.mycompany.main;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,21 +65,25 @@ public class Library{
     } // end getUser
 
     public User getOneUser(String searchWord){
-        int i = 0;
         for(User user : users){
             if(!users.isEmpty()) {
-                if (user.name.contains(searchWord.toLowerCase()) || user.email.contains(searchWord.toLowerCase())) {
+                if (user.email.equalsIgnoreCase(searchWord.toLowerCase())) {
                     return user;
                 }
-                System.out.println("i = " + i + "Users size = " + users.size());
-                if (i == users.size()) {
-                    System.out.println("User not found");
-                }
-                i++;
             }
         }
         return null;
-    }
+    } // end getOneUser
+
+    public void RewriteUsers() throws IOException {
+
+        Path fileClear = Paths.get("UserData.txt");
+        Files.write(fileClear, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
+
+        for(User user : users){
+            ReadAndWriteFile.writeUser(user);
+        }
+    } // end RewriteUsers
 
     public void addBook(Book book){
 
@@ -92,10 +101,16 @@ public class Library{
         return books.size();
     }
 
+    public void getBooks(){
+        for(Book book : books){
+            System.out.println("Title: " + book.title + ", Author: " + book.author + ", Copies: " + book.copies + ", Publish Date: " + book.publishDate);
+        }
+    }
+
     public Book getBook(String searchWord) {
         Book bookFound = null;
         for (Book book : books) {
-            if (book.title.contains(searchWord) || book.author.contains(searchWord)) {
+            if (book.title.equalsIgnoreCase(searchWord) || book.author.equalsIgnoreCase(searchWord)) {
                 System.out.println("Book found: ");
                 System.out.println("Book: " + book.title + ", Author: " + book.author + ", Copies: " + book.copies + ", Publish Date: " + book.publishDate);
                 bookFound = book;

@@ -81,7 +81,7 @@ public class Library{
         Files.write(fileClear, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
 
         for(User user : users){
-            ReadAndWriteFile.writeUser(user);
+            ReadAndWriteFile.writeUserV2(user);
         }
     } // end RewriteUsers
 

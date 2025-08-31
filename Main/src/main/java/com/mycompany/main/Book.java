@@ -14,4 +14,11 @@ public class Book {
         this.copies = copies;
         this.publishDate = publishDate;
     }
+
+    public Book(String title, String author, LocalDate publishDate){
+        this.title = title;
+        this.author = author;
+        this.publishDate = publishDate;
+        this.copies = 1;
+    }
 }

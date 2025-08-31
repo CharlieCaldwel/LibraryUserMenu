@@ -17,6 +17,21 @@ public class User{
 
     }
 
+    public User(String name, String email, String password, Book usersBooks1){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.usersBooks[0] = usersBooks1;
+    }
+
+    public User(String name, String email, String password, Book usersBooks1, Book usersBooks2){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.usersBooks[0] = usersBooks1;
+        this.usersBooks[1] = usersBooks2;
+    }
+
     public User(String name, String email, String password, Book usersBooks1, Book usersBooks2, Book usersBooks3){
         this.name = name;
         this.email = email;

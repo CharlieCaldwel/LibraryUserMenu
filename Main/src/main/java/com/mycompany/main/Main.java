@@ -89,33 +89,40 @@ public class Main {
                             System.out.println("Do you want to borrow " + borrowBook.title + " by " + borrowBook.author + "? (yes/no): ");
                             answer = scan.nextLine();
                             if (answer.equalsIgnoreCase("yes")) {
+                                borrowBook.copies = 1;
                                 ActiveUser.addBook(borrowBook);
                             }
                         }
                         else{
+                            Library.ClearDisplay();
                             System.out.println("Book not found");
                         }
                         break;
 
                     case "2":
+                        Library.ClearDisplay();
                         System.out.println("Return options: ");
                         break;
 
                     case "3":
+                        Library.ClearDisplay();
                         System.out.println("Fees due: ");
                         break;
 
                     case "4":
+                        Library.ClearDisplay();
                         System.out.println("Books currently borrowed: ");
                         System.out.println(ActiveUser.usersBooks[0].title);
                         break;
 
                     case "5":
+                        Library.ClearDisplay();
                         System.out.println("Name: ");
                         System.out.println("Library ID: ");
                         break;
 
                     case "6":
+                        Library.ClearDisplay();
                         lib.addUser(ActiveUser);
                         try {
                             lib.RewriteUsers();
@@ -128,6 +135,7 @@ public class Main {
                         break;
 
                     case "addUser":
+                        Library.ClearDisplay();
                         System.out.println("Add new user\n") ;
                         System.out.print("Name: ");
                         String userName = scan.nextLine();
@@ -140,7 +148,7 @@ public class Main {
                         if(userPassword.equals(userPassword2)) {
                             User user = new User(userName, userEmail, userPassword);
                             lib.addUser(user);
-                            ReadAndWriteFile.writeUser(user);
+                            ReadAndWriteFile.writeUserV2(user);
                         }
                         else{
                             System.out.println("Passwords do not match");

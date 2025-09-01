@@ -1,0 +1,3 @@
+bob|bobby@gmail.com|fred|||||||||||||
+fred|freddy@gmail.com|bob|||||||||||||
+charlie caldwell|charliecaldwellwa@gmail.com|abc|The Last Lighthouse|Thomas Wright|2022|4|19||||||||

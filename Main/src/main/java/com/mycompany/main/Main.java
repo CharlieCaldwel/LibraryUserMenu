@@ -59,7 +59,6 @@ public class Main {
             }
         }
 
-        lib.removeUser(ActiveUser);
         lib.getUsers();
 
         try (Scanner scan = new Scanner(System.in)) {
@@ -78,7 +77,7 @@ public class Main {
 
                 switch (option) {
 
-                    case "1":
+                    case "1": // borrow book
                         Library.ClearDisplay();
                         System.out.println("Book options: ");
                         lib.getBooks();
@@ -86,11 +85,16 @@ public class Main {
                         String searchWord = scan.nextLine();
                         Book borrowBook = lib.getBook(searchWord);
                         if(borrowBook != null) {
-                            System.out.println("Do you want to borrow " + borrowBook.title + " by " + borrowBook.author + "? (yes/no): ");
-                            answer = scan.nextLine();
-                            if (answer.equalsIgnoreCase("yes")) {
-                                borrowBook.copies = 1;
-                                ActiveUser.addBook(borrowBook);
+                            if(ActiveUser.usersBooks[2] == null) {
+                                System.out.println("Do you want to borrow " + borrowBook.title + " by " + borrowBook.author + "? (yes/no): ");
+                                answer = scan.nextLine();
+                                if (answer.equalsIgnoreCase("yes")) {
+                                    ActiveUser.addBook(borrowBook);
+                                }
+                            }
+                            else{
+                                Library.ClearDisplay();
+                                System.out.println("\nYou already are borrowing 3 books, Return a book to borrow another.");
                             }
                         }
                         else{
@@ -99,31 +103,34 @@ public class Main {
                         }
                         break;
 
-                    case "2":
+                    case "2": // return book
                         Library.ClearDisplay();
                         System.out.println("Return options: ");
                         break;
 
-                    case "3":
+                    case "3": // Pay fees
                         Library.ClearDisplay();
                         System.out.println("Fees due: ");
                         break;
 
-                    case "4":
+                    case "4": // check borrows
                         Library.ClearDisplay();
                         System.out.println("Books currently borrowed: ");
-                        System.out.println(ActiveUser.usersBooks[0].title);
+                        for(Book book : ActiveUser.usersBooks){
+                            if(book != null){
+                                System.out.println("title: " + book.title + " " + "author: " + book.author);
+                            }
+                        }
                         break;
 
-                    case "5":
+                    case "5": // check user info
                         Library.ClearDisplay();
-                        System.out.println("Name: ");
-                        System.out.println("Library ID: ");
+                        System.out.println("Name: " + ActiveUser.name);
+                        System.out.println("Library Email: " + ActiveUser.email);
                         break;
 
-                    case "6":
+                    case "6": // logout
                         Library.ClearDisplay();
-                        lib.addUser(ActiveUser);
                         try {
                             lib.RewriteUsers();
                         }
@@ -134,7 +141,7 @@ public class Main {
                         System.out.println("Logging out... ");
                         break;
 
-                    case "addUser":
+                    case "addUser": //add user
                         Library.ClearDisplay();
                         System.out.println("Add new user\n") ;
                         System.out.print("Name: ");
